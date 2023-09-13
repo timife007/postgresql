@@ -1,4 +1,4 @@
-package com.timife.prodatabase.dao;
+package com.timife.prodatabase.dao.impl;
 
 import com.timife.prodatabase.dao.impl.BookDaoImpl;
 import com.timife.prodatabase.domain.Book;

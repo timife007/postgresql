@@ -1,4 +1,4 @@
-package com.timife.prodatabase.dao;
+package com.timife.prodatabase.dao.impl;
 
 import com.timife.prodatabase.dao.impl.AuthorDaoImpl;
 import com.timife.prodatabase.domain.Author;
