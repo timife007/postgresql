@@ -1,6 +1,6 @@
 package com.timife.prodatabase.dao.impl;
 
-import com.timife.prodatabase.dao.impl.AuthorDaoImpl;
+import com.timife.prodatabase.TestDataUtil;
 import com.timife.prodatabase.domain.Author;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -9,7 +9,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
@@ -25,10 +24,7 @@ public class AuthorDaoImplTest {
 
     @Test
     public void testThatCreateAuthorGeneratesCorrectSql(){
-        Author author = Author.builder()
-                .id(1L)
-                .name("Timothy")
-                .age(1).build();
+        Author author = TestDataUtil.createTestAuthor();
 
         underTest.create(author);
         verify(jdbcTemplate).update(eq("INSERT INTO authors (id, name, age) VALUES (?, ?, ?)"),
