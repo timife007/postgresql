@@ -52,4 +52,13 @@ public class BookDaoImplTest {
                 ArgumentMatchers.<BookDaoImpl.BookRowMapper>any()
         );
     }
+
+    @Test
+    public void testThatUpdateGeneratesCorrectSql(){
+        Book book = TestDataUtil.createTestBookA();
+        underTest.update("978-1-2345-6789-01",book);
+        verify(jdbcTemplate).update("UPDATE books SET isbn = ?, title = ?, author_id = ? WHERE isbn = ?",
+                "978-1-2345-6789-01","The shadow in the Attic",1L,"978-1-2345-6789-01"
+                );
+    }
 }

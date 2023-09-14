@@ -61,4 +61,6 @@ public class AuthorDaoImplIntegrationTest {
         assertThat(result.get()).isEqualTo(authorA);
     }
 
+
+
 }
