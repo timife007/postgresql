@@ -24,7 +24,7 @@ public class BookDaoImplTest {
 
     @Test
     public void testThatCreateBookGeneratesCorrectSql(){
-        Book book = TestDataUtil.createTestBook();
+        Book book = TestDataUtil.createTestBookA();
 
         underTest.create(book);
         verify(jdbcTemplate).
