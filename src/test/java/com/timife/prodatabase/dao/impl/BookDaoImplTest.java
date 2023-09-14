@@ -1,6 +1,6 @@
 package com.timife.prodatabase.dao.impl;
 
-import com.timife.prodatabase.dao.impl.BookDaoImpl;
+import com.timife.prodatabase.TestDataUtil;
 import com.timife.prodatabase.domain.Book;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -24,10 +24,7 @@ public class BookDaoImplTest {
 
     @Test
     public void testThatCreateBookGeneratesCorrectSql(){
-        Book book = Book.builder().isbn("978-1-2345-6789-0")
-                .title("The shadow in the Attic")
-                .authorId(1L)
-                .build();
+        Book book = TestDataUtil.createTestBook();
 
         underTest.create(book);
         verify(jdbcTemplate).
