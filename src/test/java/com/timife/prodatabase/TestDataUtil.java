@@ -6,11 +6,24 @@ import com.timife.prodatabase.domain.Book;
 public final class TestDataUtil {
     private TestDataUtil(){}
 
-    public static Author createTestAuthor() {
+    public static Author createTestAuthorA() {
         return Author.builder()
                 .id(1L)
                 .name("Timothy")
-                .age(1).build();
+                .age(25).build();
+    }
+
+    public static Author createTestAuthorB() {
+        return Author.builder()
+                .id(2L)
+                .name("Ifeoluwa")
+                .age(26).build();
+    }
+    public static Author createTestAuthorC() {
+        return Author.builder()
+                .id(3L)
+                .name("Ademola")
+                .age(24).build();
     }
 
     public static Book createTestBook() {
