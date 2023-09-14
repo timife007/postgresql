@@ -29,7 +29,7 @@ public class BookDaoImplTest {
         underTest.create(book);
         verify(jdbcTemplate).
                 update(eq("INSERT INTO books (isbn, title, author_id) VALUES (?, ?, ?)"),
-                        eq("978-1-2345-6789-0"),
+                        eq("978-1-2345-6789-01"),
                         eq("The shadow in the Attic"),
                         eq(1L));
     }
