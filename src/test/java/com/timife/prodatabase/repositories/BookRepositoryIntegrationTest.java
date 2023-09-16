@@ -72,7 +72,10 @@ public class BookRepositoryIntegrationTest {
         Book bookA = TestDataUtil.createTestBookA(author);
         underTest.save(bookA);
 
-        underTest.delete(bookA);
+//        underTest.delete(bookA);
+
+        //Can also use deleteById
+        underTest.deleteById(bookA.getIsbn());
         Optional<Book> result = underTest.findById(bookA.getIsbn());
         assertThat(result).isEmpty();
     }
