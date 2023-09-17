@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class AuthorController {
 
-    private final AuthorService authorService;
+    private AuthorService authorService;
 
-    private final Mapper<AuthorEntity, AuthorDto> authorMapper;
+    private  Mapper<AuthorEntity, AuthorDto> authorMapper;
 
     public AuthorController(AuthorService service, Mapper<AuthorEntity, AuthorDto> authorMapper){
         this.authorService = service;
