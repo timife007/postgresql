@@ -1,11 +1,10 @@
-package com.timife.prodatabase.domain;
+package com.timife.prodatabase.domain.entities;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.context.annotation.Configuration;
 
 @Builder
 @AllArgsConstructor
@@ -13,7 +12,7 @@ import org.springframework.context.annotation.Configuration;
 @Data
 @Entity
 @Table(name = "books")
-public class Book {
+public class BookEntity {
     @Id
     private String isbn;
 
@@ -21,5 +20,5 @@ public class Book {
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "author_id")
-    private Author author;
+    private AuthorEntity authorEntity;
 }
