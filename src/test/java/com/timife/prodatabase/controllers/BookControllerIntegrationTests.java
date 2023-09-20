@@ -4,6 +4,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.timife.prodatabase.TestDataUtil;
 import com.timife.prodatabase.domain.dtos.BookDto;
+import com.timife.prodatabase.domain.entities.BookEntity;
+import com.timife.prodatabase.services.BookService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,15 +26,16 @@ public class BookControllerIntegrationTests {
 
     private MockMvc mockMvc;
 
+    private BookService bookService;
     //Since the mockMvc needs the data in json, an object mapper is
     //needed to convert from data from and to json.
     private ObjectMapper objectMapper;
 
     private
 
-    @Autowired
-    BookControllerIntegrationTests(MockMvc mockMvc, ObjectMapper objectMapper){
+    @Autowired BookControllerIntegrationTests(MockMvc mockMvc, ObjectMapper objectMapper, BookService bookService) {
         this.mockMvc = mockMvc;
+        this.bookService = bookService;
         this.objectMapper = objectMapper;
     }
 
@@ -48,6 +51,7 @@ public class BookControllerIntegrationTests {
                         .content(createBookJson)
         ).andExpect(MockMvcResultMatchers.status().isCreated());
     }
+
     @Test
     public void testThatCreateBookReturnsCreatedBook() throws Exception {
         BookDto bookDto = TestDataUtil.createTestBookDtoA(null);
@@ -63,4 +67,29 @@ public class BookControllerIntegrationTests {
                 MockMvcResultMatchers.jsonPath("$.title").value(bookDto.getTitle())
         );
     }
+
+    @Test
+    public void testThatCreateBookReturnHttpStatus200Created() throws Exception {
+        mockMvc.perform(
+                MockMvcRequestBuilders.get("/books")
+                        .contentType(MediaType.APPLICATION_JSON)
+        ).andExpect(
+                MockMvcResultMatchers.status().isOk()
+        );
+    }
+
+    @Test
+    public void testThatListBooksReturnsBook() throws Exception {
+        BookEntity testBookEntityA = TestDataUtil.createTestBookEntityA(null);
+        bookService.createBook(testBookEntityA.getIsbn(),testBookEntityA);
+        mockMvc.perform(
+                MockMvcRequestBuilders.get("/books")
+                        .contentType(MediaType.APPLICATION_JSON)
+        ).andExpect(
+                MockMvcResultMatchers.jsonPath("$[0].isbn").value("978-1-2345-6789-0")
+        ).andExpect(
+                MockMvcResultMatchers.jsonPath("$[0].title").value("The Last Ember")
+        );
+    }
+
 }
