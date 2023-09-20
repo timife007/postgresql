@@ -26,14 +26,15 @@ public class AuthorControllerIntegrationTests {
     private MockMvc mockMvc;
 
     private ObjectMapper objectMapper;
+
     @Autowired
-    public AuthorControllerIntegrationTests(MockMvc mockMvc){
+    public AuthorControllerIntegrationTests(MockMvc mockMvc) {
         this.mockMvc = mockMvc;
         this.objectMapper = new ObjectMapper();
     }
 
     @Test
-    public  void testThatCreateAuthorSuccessfullyReturnsHttp201Create() throws Exception {
+    public void testThatCreateAuthorSuccessfullyReturnsHttp201Create() throws Exception {
         AuthorEntity testAuthorA = TestDataUtil.createTestAuthorA();
         testAuthorA.setId(null);
         String authorJson = objectMapper.writeValueAsString(testAuthorA);
@@ -45,21 +46,29 @@ public class AuthorControllerIntegrationTests {
     }
 
     @Test
-    public  void testThatCreateAuthorSuccessfullyReturnsSavedAuthor() throws Exception {
+    public void testThatCreateAuthorSuccessfullyReturnsSavedAuthor() throws Exception {
         AuthorEntity testAuthorA = TestDataUtil.createTestAuthorA();
         testAuthorA.setId(null);
         String authorJson = objectMapper.writeValueAsString(testAuthorA);
         mockMvc.perform(
-                MockMvcRequestBuilders.post("/authors")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(authorJson)
-        ).andExpect(
-                MockMvcResultMatchers.jsonPath("$.id").isNumber())
+                        MockMvcRequestBuilders.post("/authors")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(authorJson)
+                ).andExpect(
+                        MockMvcResultMatchers.jsonPath("$.id").isNumber())
                 .andExpect(
                         MockMvcResultMatchers.jsonPath("$.name").value("Timothy"))
                 .andExpect(
                         MockMvcResultMatchers.jsonPath("$.age").value(50)
                 );
+    }
+
+    @Test
+    public void testThatListAuthorsReturnsHttpStatus200() throws Exception {
+        mockMvc.perform(
+                MockMvcRequestBuilders.get("/authors")
+                        .contentType(MediaType.APPLICATION_JSON)
+        ).andExpect(MockMvcResultMatchers.status().isOk());
     }
 
 }
