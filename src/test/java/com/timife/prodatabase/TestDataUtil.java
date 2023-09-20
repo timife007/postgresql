@@ -48,6 +48,13 @@ public final class TestDataUtil {
                 .build();
     }
 
+    public static AuthorEntity createTestAuthorEntityA() {
+        return AuthorEntity.builder()
+                .id(1L)
+                .name("Timothy")
+                .age(50).build();
+    }
+
     public static BookEntity createTestBookEntityA(final AuthorEntity authorEntity) {
         return BookEntity.builder()
                 .isbn("978-1-2345-6789-0")
