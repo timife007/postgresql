@@ -1,9 +1,9 @@
 package com.timife.prodatabase.controllers;
 
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.timife.prodatabase.TestDataUtil;
+import com.timife.prodatabase.domain.dtos.AuthorDto;
 import com.timife.prodatabase.domain.entities.AuthorEntity;
 import com.timife.prodatabase.services.AuthorService;
 import org.junit.jupiter.api.Test;
@@ -78,7 +78,7 @@ public class AuthorControllerIntegrationTests {
     @Test
     public void testThatListAuthorsReturnsListOfAuthors() throws Exception {
         AuthorEntity testAuthorEntityA = TestDataUtil.createTestAuthorEntityA();
-        authorService.createAuthor(testAuthorEntityA);
+        authorService.save(testAuthorEntityA);
         mockMvc.perform(
                         MockMvcRequestBuilders.get("/authors")
                                 .contentType(MediaType.APPLICATION_JSON)
@@ -90,4 +90,25 @@ public class AuthorControllerIntegrationTests {
                         MockMvcResultMatchers.jsonPath("$.[0].age").value(50)
                 );
     }
+
+    @Test
+    public void testThatGetAuthorReturnsHttpStatus404WhenNoAuthorExists() throws Exception {
+        mockMvc.perform(
+                MockMvcRequestBuilders.get("/authors/99")
+                        .contentType(MediaType.APPLICATION_JSON)
+        ).andExpect(MockMvcResultMatchers.status().isNotFound());
+    }
+
+    @Test
+    public void testThatFullUpdateAuthorReturnsHttpStatus404WhenNoAuthorExists() throws Exception {
+        AuthorDto testAuthorDtoA = TestDataUtil.createTestAuthorDtoA();
+        String authorDtoJson = objectMapper.writeValueAsString(testAuthorDtoA);
+
+        mockMvc.perform(
+                MockMvcRequestBuilders.put("/authors/99")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(authorDtoJson)
+        ).andExpect(MockMvcResultMatchers.status().isNotFound());
+    }
+
 }
