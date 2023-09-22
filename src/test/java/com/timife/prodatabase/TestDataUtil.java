@@ -48,8 +48,9 @@ public final class TestDataUtil {
                 .build();
     }
 
-    public static AuthorEntity createTestAuthorEntityA() {
-        return AuthorEntity.builder()
+    public static AuthorEntity createTestAuthorEntityA(){
+        return AuthorEntity
+                .builder()
                 .id(1L)
                 .name("Timothy")
                 .age(50).build();
