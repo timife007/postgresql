@@ -48,12 +48,22 @@ public final class TestDataUtil {
                 .build();
     }
 
-    public static AuthorEntity createTestAuthorEntityA() {
-        return AuthorEntity.builder()
+    public static AuthorEntity createTestAuthorEntityA(){
+        return AuthorEntity
+                .builder()
                 .id(1L)
                 .name("Timothy")
                 .age(50).build();
     }
+
+    public static AuthorDto createTestAuthorDtoA() {
+        return AuthorDto.builder()
+                .id(1L)
+                .name("Timothy")
+                .age(50).build();
+    }
+
+
 
     public static BookEntity createTestBookEntityA(final AuthorEntity authorEntity) {
         return BookEntity.builder()
