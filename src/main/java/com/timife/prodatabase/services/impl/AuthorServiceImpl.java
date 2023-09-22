@@ -1,10 +1,12 @@
 package com.timife.prodatabase.services.impl;
 
+import com.timife.prodatabase.domain.dtos.AuthorDto;
 import com.timife.prodatabase.domain.entities.AuthorEntity;
 import com.timife.prodatabase.repositories.AuthorRepository;
 import com.timife.prodatabase.services.AuthorService;
 import org.springframework.stereotype.Service;
 
+import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -37,5 +39,17 @@ public class AuthorServiceImpl implements AuthorService {
     @Override
     public boolean isExists(Long id) {
         return authorRepository.existsById(id);
+    }
+
+    @Override
+    public AuthorEntity partialUpdate(Long id, AuthorEntity authorEntity) {
+        authorEntity.setId(id);
+        return authorRepository.findById(id).map(existingAuthor -> {
+                    Optional.ofNullable(authorEntity.getName()).ifPresent(existingAuthor::setName);
+                    Optional.ofNullable(authorEntity.getAge()).ifPresent(existingAuthor::setAge);
+                    return authorRepository.save(existingAuthor);
+
+                }
+        ).orElseThrow(() -> new RuntimeException("Author does not exist"));
     }
 }
