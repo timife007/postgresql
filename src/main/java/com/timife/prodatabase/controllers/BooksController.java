@@ -4,6 +4,8 @@ import com.timife.prodatabase.domain.dtos.BookDto;
 import com.timife.prodatabase.domain.entities.BookEntity;
 import com.timife.prodatabase.mappers.Mapper;
 import com.timife.prodatabase.services.BookService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -43,12 +45,11 @@ public class BooksController {
 
     }
 
+    //Spring will inject the pageable for use
     @GetMapping(path = "/books")
-    public List<BookDto> listBooks() {
-        List<BookEntity> books = bookService.findAll();
-        return books.stream()
-                .map(bookMapper::mapTo)
-                .collect(Collectors.toList());
+    public Page<BookDto> listBooks(Pageable pageable) {
+        Page<BookEntity> books = bookService.findAll(pageable);
+        return books.map(bookMapper::mapTo);
     }
 
     @GetMapping(path = "/books/{isbn}")
@@ -78,6 +79,12 @@ public class BooksController {
     @DeleteMapping(path = "/books/{isbn}")
     public ResponseEntity deleteBook(@PathVariable("isbn") String isbn){
         bookService.delete(isbn);
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
+    }
+
+    @DeleteMapping(path = "/books")
+    public ResponseEntity deleteAllBooks(){
+        bookService.deleteAll();
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 

@@ -167,4 +167,18 @@ public class AuthorControllerIntegrationTests {
         ).andExpect(MockMvcResultMatchers.status().isNoContent());
     }
 
+    @Test
+    public void testThatDeleteAllAuthorsReturns204() throws Exception {
+        AuthorEntity testAuthorEntityA = TestDataUtil.createTestAuthorEntityA();
+        AuthorEntity savedAuthorA = authorService.save(testAuthorEntityA);
+        AuthorEntity testAuthorEntityB = TestDataUtil.createTestAuthorEntityA();
+        AuthorEntity savedAuthorB = authorService.save(testAuthorEntityB);
+        authorService.save(savedAuthorA);
+        authorService.save(savedAuthorB);
+
+        mockMvc.perform(
+                MockMvcRequestBuilders.delete("/authors/")
+                        .contentType(MediaType.APPLICATION_JSON)
+        ).andExpect(MockMvcResultMatchers.status().isNoContent());
+    }
 }

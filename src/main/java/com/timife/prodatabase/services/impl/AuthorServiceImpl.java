@@ -57,4 +57,9 @@ public class AuthorServiceImpl implements AuthorService {
     public void delete(Long id) {
         authorRepository.deleteById(id);
     }
+
+    @Override
+    public void deleteAll() {
+        authorRepository.deleteAll();
+    }
 }

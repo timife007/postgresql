@@ -3,6 +3,8 @@ package com.timife.prodatabase.services.impl;
 import com.timife.prodatabase.domain.entities.BookEntity;
 import com.timife.prodatabase.repositories.BookRepository;
 import com.timife.prodatabase.services.BookService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -34,6 +36,11 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
+    public Page<BookEntity> findAll(Pageable pageable) {
+        return bookRepository.findAll(pageable);
+    }
+
+    @Override
     public Optional<BookEntity> findOne(String isbn) {
         return bookRepository.findById(isbn);
     }
@@ -56,5 +63,10 @@ public class BookServiceImpl implements BookService {
     @Override
     public void delete(String isbn) {
         bookRepository.deleteById(isbn);
+    }
+
+    @Override
+    public void deleteAll() {
+         bookRepository.deleteAll();
     }
 }
