@@ -97,4 +97,10 @@ public class AuthorController {
         return new ResponseEntity(HttpStatus.NO_CONTENT);
 
     }
+
+    @DeleteMapping(path = "/authors")
+    public ResponseEntity deleteAllAuthors(){
+        authorService.deleteAll();
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
+    }
 }

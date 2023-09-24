@@ -81,4 +81,10 @@ public class BooksController {
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
+    @DeleteMapping(path = "/books")
+    public ResponseEntity deleteAllBooks(){
+        bookService.deleteAll();
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
+    }
+
 }
