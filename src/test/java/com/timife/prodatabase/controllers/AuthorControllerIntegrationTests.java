@@ -177,7 +177,7 @@ public class AuthorControllerIntegrationTests {
         authorService.save(savedAuthorB);
 
         mockMvc.perform(
-                MockMvcRequestBuilders.delete("/authors/")
+                MockMvcRequestBuilders.delete("/authors")
                         .contentType(MediaType.APPLICATION_JSON)
         ).andExpect(MockMvcResultMatchers.status().isNoContent());
     }
