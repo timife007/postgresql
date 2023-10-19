@@ -7,4 +7,10 @@ services:
       - "5432:5432"
     restart: always
     environment:
-      POSTGRES_PASSWORD: changemeinprod!
+      POSTGRES_PASSWORD: Hello1997
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - "8888:8080"
