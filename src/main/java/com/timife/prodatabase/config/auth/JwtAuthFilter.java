@@ -21,6 +21,7 @@ import java.io.IOException;
 public class JwtAuthFilter extends OncePerRequestFilter {
     private final JwtService jwtService;
     private final UserDetailsService userDetailsService;
+
     @Override
     protected void doFilterInternal(
             @NonNull HttpServletRequest request,
@@ -34,7 +35,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
         //Check if there is a valid token or any token at all(if it starts with Bearer)
         //if no, continue to the next event on the filter chain
-        if(authHeader == null || !authHeader.startsWith("Bearer ")){
+        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
             filterChain.doFilter(request, response);
             return;
         }
@@ -42,14 +43,14 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         //initialize the jwt by getting it from the non-null header
         jwt = authHeader.substring(7);
         //initialize the userEmail by extracting it logically from the token.
-        jwtService.extractUsername(jwt);
+        userEmail = jwtService.extractUsername(jwt);
 
         //Check if email is available but not authenticated(since context holder authentication is null.)
-        if(userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null){
+        if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             UserDetails userDetails = this.userDetailsService.loadUserByUsername(userEmail);
             //checks the validity of the token and user details by providing the details from the
             //db using the userDetailsService.
-            if(jwtService.isTokenValid(jwt, userDetails)){
+            if (jwtService.isTokenValid(jwt, userDetails)) {
                 //this authToken is needed to update the securityContextHolder of the authorization state
                 //of the user.
                 UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
