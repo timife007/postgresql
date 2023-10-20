@@ -20,7 +20,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
  //                in the filter chain. The jwtAuthFilter is responsible for handling JWT-based authentication.
 
 /**
- * his configuration class sets up JWT-based authentication and specifies the authorization
+ * This configuration class sets up JWT-based authentication and specifies the authorization
  * rules for various endpoints in a Spring Security context. It's well-suited for securing
  * a REST API where JWT tokens are used for authentication and authorization.
  */

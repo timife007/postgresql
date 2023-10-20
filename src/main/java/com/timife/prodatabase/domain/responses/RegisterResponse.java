@@ -6,10 +6,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@Builder
-@AllArgsConstructor
 @NoArgsConstructor
-public class AuthResponse {
-    private Boolean success;
+@AllArgsConstructor
+@Builder
+public class RegisterResponse {
     private String token;
 }

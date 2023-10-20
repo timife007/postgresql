@@ -6,6 +6,7 @@ import com.timife.prodatabase.domain.User;
 import com.timife.prodatabase.domain.requests.AuthRequest;
 import com.timife.prodatabase.domain.requests.RegisterRequest;
 import com.timife.prodatabase.domain.responses.AuthResponse;
+import com.timife.prodatabase.domain.responses.RegisterResponse;
 import com.timife.prodatabase.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -21,7 +22,7 @@ public class AuthenticationService {
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
 
-    public AuthResponse register(RegisterRequest request){
+    public RegisterResponse register(RegisterRequest request){
         User user = User.builder()
                 .firstName(request.getFirstName())
                 .lastName(request.getLastName())
@@ -31,7 +32,7 @@ public class AuthenticationService {
                 .build();
         userRepository.save(user);
         var jwtToken = jwtService.generateToken(user);
-        return AuthResponse.builder()
+        return RegisterResponse.builder()
                 .token(jwtToken)
                 .build();
     }
@@ -58,6 +59,7 @@ public class AuthenticationService {
         var jwtToken = jwtService.generateToken(user);
         return AuthResponse.builder()
                 .token(jwtToken)
+                .success(true)
                 .build();
     }
 }

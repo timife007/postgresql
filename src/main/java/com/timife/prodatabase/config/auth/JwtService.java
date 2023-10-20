@@ -16,7 +16,7 @@ import java.util.function.Function;
 
 @Service //Make this class an injectable component
 public class JwtService {
-    private static final String SECRET_KEY = "";
+    private static final String SECRET_KEY = "uByCyIE+C2zyFk0s3rLz2A1XBD/BnXNTCc4TAr7PKSj8DTM6QwT2qtiqcilsqsRzyf+9LpHHdDNb6uForIwqHqu12df41H9otyCm5yiZM1KpKABxIcdxPxTBIbM61Uc2FCoUboT28zltIexK3hTdyCiIoETm3Xik+ukf2zZHEBE2UfnhiaKTS0XoTZrEqcT3OX6lGsHt2lYF/IEskAf78Vw0uK43EBHT8hSB8Iztoijn1b0OAc03V6rj8Hqr5cSOp9CBGRknQKCBWKIQ/mwGRcYo+t3iRvsiQTJ3Q7pLRPaLWHkLjR2w9VYJzNn2vjkhSXj3OOgH4v8DiXfOoyqQY02euqiw3acAZ7lXIKF+/tk=";
 
     public String extractUsername(String token){
         return extractClaim(token, Claims::getSubject);
