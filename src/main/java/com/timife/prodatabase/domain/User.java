@@ -17,7 +17,7 @@ import java.util.List;
 @Data
 @Builder
 @Entity
-@Table(name = "_user")
+@Table(name = "_users")
 public class User implements UserDetails {
     @Id
     @GeneratedValue //Automatically selects a strategy for your db type.
